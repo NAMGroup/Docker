@@ -1,0 +1,31 @@
+Basic instructions on how to run the basic stress server:
+{PATH_TO_EXECUTABLE}/uvicorn  stress_server:app --reload
+The --reload flag is for development purposes only to allow changes in code during run time. Remove this flasg for production.
+
+A number of API endpoints are defined.
+These endpoints will stress the cpu of the system for a specific time period.
+Ways to stress:
+    Default: Stress 1 cpu for 10 seconds.
+    Custom: Define CPUs to stress (1-12) and duration (1-100 seconds)
+    Random: Stress random CPUs (2-8) fro random duration(10-30 seconds)
+
+The endpoints are defined as both GET and POST to allow easy use from either browser, console or application like POSTMAN
+GET:
+default: http://localhost:8000/browser_stress                        (1 cpu, 10 seconds)
+custom:  http://localhost:8000/browser_stress/?cpu=4;duration=20     (4 cpus, 20 seconds)
+         http://localhost:8000/browser_stress/?cpu=4                 (4 cpus, 10 seconds(default) )
+         http://localhost:8000/browser_stress/?duration=20           (1 cpu(default), 20 seconds)
+random:  http://localhost:8000/browser_stress_random 
+POST:
+default: http://localhost:8000/stress                        (1 cpu, 10 seconds)
+custom:  http://localhost:8000/stress/?cpu=4;duration=20     (4 cpus, 20 seconds)
+         http://localhost:8000/stress/?cpu=4                 (4 cpus, 10 seconds(default) )
+         http://localhost:8000/stress/?duration=20           (1 cpu(default), 20 seconds)
+         http://localhost:8000/stress_random 
+
+
+CURL examples
+GET
+    curl http://localhost:8000/browser_stress/?cpu=4;duration=20
+    curl http://localhost:8000/browser_stress/
+    curl http://localhost:8000/browser_stress_random/
